@@ -1,0 +1,27 @@
+{
+  "name": "express-openid-jwt",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "José F. Romaniello <jfromaniello@gmail.com> (https://joseoncode.com)",
+  "license": "MIT",
+  "dependencies": {
+    "jsonwebtoken": "^8.4.0",
+    "lodash.memoize": "^4.1.2",
+    "openid-client": "^2.4.5",
+    "request": "^2.88.0"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "ejs": "^2.6.1",
+    "express": "^4.16.4",
+    "mocha": "^5.2.0",
+    "nock": "^10.0.2",
+    "pem-jwk": "^1.5.1",
+    "request-promise-native": "^1.0.5",
+    "selfsigned": "^1.10.4"
+  }
+}
