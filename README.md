@@ -16,18 +16,22 @@ npm i express-openid-jwt --save
 ```javascript
 const jwt = require('express-openid-jwt');
 
-app.use(jwt({
+app.use(jwt.auth({
   issuerBaseURL: 'https://foobar.auth0.com',
   allowedAudiences: 'https://api.mysite.com'
 }));
 
-app.get('/test', (req, res) => {
-  console.dir(req.openid.claims);
-  res.sendStatus(200);
-});
+app.get('/products',
+  jwt.requireScopes('read:products'),
+  (req, res) => {
+    console.dir(req.openid.claims);
+    res.sendStatus(200);
+  });
 ```
 
 ## Parameters
+
+`jwt.auth` accepts the following parameters:
 
 | Name                | Default                         | Description                                                                    |
 |---------------------|---------------------------------|--------------------------------------------------------------------------------|
@@ -37,6 +41,7 @@ app.get('/test', (req, res) => {
 | clockTolerance      | `5`                             | The clock's tolerance in seconds for token verification.                       |
 | clientSecret        | `env.CLIENT_SECRET`             | The client secret, only required if you need to validate tokens signed with symmetric algorithms. |
 
+`jwt.requireScopes` accepts either an string or an array of strings.
 
 ## License
 

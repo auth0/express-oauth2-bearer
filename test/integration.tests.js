@@ -17,7 +17,7 @@ describe('integration tests', function() {
   let address;
 
   before(async function() {
-    address = await server.create(jwtAuth({
+    address = await server.create(jwtAuth.auth({
       issuerBaseURL: issuer,
       allowedAudiences: [ audience ],
       clientSecret: symmetricKey
@@ -31,7 +31,8 @@ describe('integration tests', function() {
       'aud': audience,
       'iat': Math.round(Date.now() / 1000),
       'exp': Math.round(Date.now() / 1000) + 60000,
-      'fifi': 'tutu'
+      'fifi': 'tutu',
+      'scope': 'read:products'
     }, cert.key, { algorithm: 'RS256', header: { kid: cert.kid } });
 
     before(async function() {
@@ -44,11 +45,33 @@ describe('integration tests', function() {
       });
     });
 
-    it('should work', async function() {
+    it('should work', function() {
       assert.equal(res.statusCode, 200);
     });
 
-    it('should put the claims in the req object', async function() {
+    it('should work for an endpoint expecting the scope', async function() {
+      const res = await request.get({
+        url: `${address}/products`,
+        json: true,
+        headers: {
+          'authorization': `Bearer ${token}`
+        }
+      });
+      assert.equal(res.statusCode, 200);
+    });
+
+    it('should not work for an endpoint expecting a different scope', async function() {
+      const res = await request.get({
+        url: `${address}/orders`,
+        json: true,
+        headers: {
+          'authorization': `Bearer ${token}`
+        }
+      });
+      assert.equal(res.statusCode, 401);
+    });
+
+    it('should put the claims in the req object', function() {
       assert.ok(res.body);
       assert.ok(res.body.claims.fifi, 'tutu');
     });

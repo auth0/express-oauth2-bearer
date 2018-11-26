@@ -74,7 +74,7 @@ function verifyToken(token, issuer, audiences, clockTolerance, clientSecret) {
 * @param {string} [params.clientSecret] Key to validate tokens signed with symmetric algorithms.
 * @returns {Function} the middleware
 */
-module.exports = function(params) {
+module.exports.auth = function(params) {
   params = Object.assign({}, defaults, params || {});
   if (!params.issuerBaseURL) {
     throw new Error('issuerBaseURL is required');
@@ -98,5 +98,44 @@ module.exports = function(params) {
     } catch(err) {
       next(err);
     }
+  };
+};
+
+/**
+* Returns a router with two routes /login and /callback
+*
+* @param {Array|String} scopes The required scopes.
+*
+* @returns {Function} the middleware
+*/
+module.exports.requireScopes = function(scopes) {
+  if (typeof scopes === 'string') {
+    scopes = [scopes];
+  } else if(!Array.isArray(scopes)) {
+    throw new Error('scopes is required');
+  }
+
+  return (req, res, next) => {
+    if (!req.openid) {
+      return next(new UnauthorizedError('missing_openid_context', {
+        message: 'The requiresScopes middleware need the auth middleware first.'
+      }));
+    }
+
+    if (!req.openid.claims.scope) {
+      return next(new UnauthorizedError('missing_scope_claim', {
+        message: 'The JWT does not contain an scope claim.'
+      }));
+    }
+
+    const tokenScopes = req.openid.claims.scope.split(' ');
+    const missingScopes = scopes.filter(s => !tokenScopes.includes(s));
+    if (missingScopes.length > 0) {
+      return next(new UnauthorizedError('missing_scopes', {
+        message: 'Missing scopes: ' + missingScopes.join(' ')
+      }));
+    }
+
+    next();
   };
 };
