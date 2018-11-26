@@ -10,8 +10,8 @@
   "license": "MIT",
   "dependencies": {
     "jsonwebtoken": "^8.4.0",
-    "lodash.memoize": "^4.1.2",
     "openid-client": "^2.4.5",
+    "p-memoize": "^2.1.0",
     "request": "^2.88.0"
   },
   "devDependencies": {

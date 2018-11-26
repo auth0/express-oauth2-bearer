@@ -1,5 +1,5 @@
 const { Issuer } = require('openid-client');
-const memoize = require('lodash.memoize');
+const memoize = require('p-memoize');
 const jwt = require('jsonwebtoken');
 const UnauthorizedError = require('./lib/UnauthorizedError');
 const pkg = require('./package.json');
