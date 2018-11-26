@@ -33,7 +33,7 @@ app.get('/test', (req, res) => {
 |---------------------|---------------------------------|--------------------------------------------------------------------------------|
 | issuerBaseURL       | `env.ISSUER_BASE_URL`           | The url address for the token issuer.                                          |
 | allowedAudiences    | `env.ALLOWED_AUDIENCES.split(',')`       | The allowed audiences for the token.                                           |
-| getToken            | `req => req.headers.authoization.match(/^Bearer\s(.*)$/)[1]`       | Specifies how to get the token from the request. |
+| getToken            | `headers.authoization.match(/^Bearer\s(.*)$/)[1]`       | Specifies how to get the token from the request. |
 | clockTolerance      | `5`                             | The clock's tolerance in seconds for token verification.                       |
 | clientSecret        | `env.CLIENT_SECRET`             | The client secret, only required if you need to validate tokens signed with symmetric algorithms. |
 
