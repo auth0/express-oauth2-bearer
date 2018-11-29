@@ -12,7 +12,28 @@ npm i express-oauth2-bearer --save
 
 ## Basic Usage
 
-If the access token received by your API are JWT tokens signed in the same way than OpenID Connect id_tokens, you can use the openid strategy as follows:
+You need to add the `auth` middleware with a callback to validate tokens as follows:
+
+```javascript
+const { auth, strategies, requiresScopes } = require('express-oauth2-bearer');
+
+const validateAccesToken = async (token) => {
+  const token = await db.tokens.find(token);
+  if (token.expired) { return; }
+  return token;
+};
+
+app.use(auth(validateAcessToken)));
+
+app.get('/products',
+  requiresScopes('read:products'),
+  (req, res) => {
+    console.dir(req.auth.claims);
+    res.sendStatus(200);
+  });
+```
+
+If the access token received by your API is a token signed in the same way than OpenID Connect id_tokens, you can use the openid strategy as follows:
 
 ```javascript
 const { auth, strategies, requiresScopes } = require('express-oauth2-bearer');
@@ -30,33 +51,12 @@ app.get('/products',
   });
 ```
 
-The OpenID strategy is the default strategy and ISSUER_BASE_URL and ALLOWED_AUDIENCES can be configured with environment variables, so the above code is equal to this:
+The OpenID strategy is the default strategy if the application contains the variables `ISSUER_BASE_URL` and `ALLOWED_AUDIENCES`, so the above code is equal to this:
 
 ```javascript
 const { auth, requiresScopes } = require('express-oauth2-bearer');
 
 app.use(auth());
-
-app.get('/products',
-  requiresScopes('read:products'),
-  (req, res) => {
-    console.dir(req.auth.claims);
-    res.sendStatus(200);
-  });
-```
-
-You can provide your own strategy as follows:
-
-```javascript
-const { auth, strategies, requiresScopes } = require('express-oauth2-bearer');
-
-const validateAccesToken = async (token) => {
-  const token = await db.tokens.find(token);
-  if (token.expired) { return; }
-  return token;
-};
-
-app.use(auth(validateAcessToken)));
 
 app.get('/products',
   requiresScopes('read:products'),
