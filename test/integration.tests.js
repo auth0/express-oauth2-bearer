@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 const server = require('./fixture/server');
 const { assert } = require('chai');
-const jwtAuth = require('./..');
+const { auth, strategies } = require('./..');
 const cert = require('./fixture/cert');
 const request = require('request-promise-native').defaults({
   simple: false,
@@ -17,11 +17,11 @@ describe('integration tests', function() {
   let address;
 
   before(async function() {
-    address = await server.create(jwtAuth.auth({
+    address = await server.create(auth(strategies.openid({
       issuerBaseURL: issuer,
       allowedAudiences: [ audience ],
       clientSecret: symmetricKey
-    }));
+    })));
   });
 
   describe('when the token is valid', function() {

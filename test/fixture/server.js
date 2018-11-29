@@ -1,6 +1,6 @@
 const express = require('express');
 const http = require('http');
-const jwtAuth = require('../..');
+const { requiredScopes } = require('../..');
 
 module.exports.create = function(middleware) {
   const app = express();
@@ -8,17 +8,17 @@ module.exports.create = function(middleware) {
   app.use(middleware);
 
   app.get('/test', (req, res) => {
-    res.json(req.openid);
+    res.json(req.auth);
   });
 
   app.get('/products',
-    jwtAuth.requireScopes('read:products'),
+    requiredScopes('read:products'),
     (req, res) => {
       res.json([]);
     });
 
   app.get('/orders',
-    jwtAuth.requireScopes('read:orders'),
+    requiredScopes('read:orders'),
     (req, res) => {
       res.json([]);
     });

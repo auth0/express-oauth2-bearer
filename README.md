@@ -15,7 +15,7 @@ npm i express-oauth2-bearer --save
 You need to add the `auth` middleware with a callback to validate tokens as follows:
 
 ```javascript
-const { auth, requiresScopes } = require('express-oauth2-bearer');
+const { auth, requiredScopes } = require('express-oauth2-bearer');
 
 const validateAccesToken = async (token) => {
   const token = await db.tokens.find(token);
@@ -26,7 +26,7 @@ const validateAccesToken = async (token) => {
 app.use(auth(validateAcessToken)));
 
 app.get('/products',
-  requiresScopes('read:products'),
+  requiredScopes('read:products'),
   (req, res) => {
     console.dir(req.auth.claims);
     res.sendStatus(200);
@@ -36,7 +36,7 @@ app.get('/products',
 If the access token received by your API is a token signed in the same way than OpenID Connect id_tokens, you can use the openid strategy as follows:
 
 ```javascript
-const { auth, strategies, requiresScopes } = require('express-oauth2-bearer');
+const { auth, strategies, requiredScopes } = require('express-oauth2-bearer');
 
 app.use(auth(strategies.openid({
   issuerBaseURL: 'https://foobar.auth0.com',
@@ -44,7 +44,7 @@ app.use(auth(strategies.openid({
 })));
 
 app.get('/products',
-  requiresScopes('read:products'),
+  requiredScopes('read:products'),
   (req, res) => {
     console.dir(req.auth.claims);
     res.sendStatus(200);
@@ -54,12 +54,12 @@ app.get('/products',
 The OpenID strategy is the default strategy if the application contains the variables `ISSUER_BASE_URL` and `ALLOWED_AUDIENCES`, so the above code is equal to this:
 
 ```javascript
-const { auth, requiresScopes } = require('express-oauth2-bearer');
+const { auth, requiredScopes } = require('express-oauth2-bearer');
 
 app.use(auth());
 
 app.get('/products',
-  requiresScopes('read:products'),
+  requiredScopes('read:products'),
   (req, res) => {
     console.dir(req.auth.claims);
     res.sendStatus(200);
@@ -80,7 +80,7 @@ app.get('/products',
 | clockTolerance      | `5`                             | The clock's tolerance in seconds for token verification.                       |
 | clientSecret        | `env.CLIENT_SECRET`             | The client secret, only required if you need to validate tokens signed with symmetric algorithms. |
 
-`jwt.requiresScopes` accepts either an string or an array of strings.
+`jwt.requiredScopes` accepts either an string or an array of strings.
 
 ## License
 
