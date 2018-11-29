@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "lint": "eslint ./"
   },
   "author": "José F. Romaniello <jfromaniello@gmail.com> (https://joseoncode.com)",
   "license": "MIT",

@@ -12,28 +12,7 @@ npm i express-oauth2-bearer --save
 
 ## Usage
 
-You need to add the `auth` middleware with a callback to validate tokens as follows:
-
-```javascript
-const { auth, requiredScopes } = require('express-oauth2-bearer');
-
-const validateAccesToken = async (token) => {
-  const token = await db.tokens.find(token);
-  if (token.expired) { return; }
-  return token;
-};
-
-app.use(auth(validateAcessToken)));
-
-app.get('/products',
-  requiredScopes('read:products'),
-  (req, res) => {
-    console.dir(req.auth.claims);
-    res.sendStatus(200);
-  });
-```
-
-If the access token received by your API is a token signed in the same way than OpenID Connect id_tokens, you can use the openid strategy as follows:
+If the access token received by your API is a token signed in the same way than OpenID Connect id_token, you can use the openid strategy as follows:
 
 ```javascript
 const { auth, strategies, requiredScopes } = require('express-oauth2-bearer');
@@ -65,6 +44,29 @@ app.get('/products',
     res.sendStatus(200);
   });
 ```
+
+
+You need to add the `auth` middleware with a callback to validate tokens as follows:
+
+```javascript
+const { auth, requiredScopes } = require('express-oauth2-bearer');
+
+const validateAccesToken = async (token) => {
+  const token = await db.tokens.find(token);
+  if (token.expired) { return; }
+  return token;
+};
+
+app.use(auth(validateAcessToken)));
+
+app.get('/products',
+  requiredScopes('read:products'),
+  (req, res) => {
+    console.dir(req.auth.claims);
+    res.sendStatus(200);
+  });
+```
+
 
 ## Parameters
 
