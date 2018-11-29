@@ -15,7 +15,7 @@ npm i express-oauth2-bearer --save
 You need to add the `auth` middleware with a callback to validate tokens as follows:
 
 ```javascript
-const { auth, strategies, requiresScopes } = require('express-oauth2-bearer');
+const { auth, requiresScopes } = require('express-oauth2-bearer');
 
 const validateAccesToken = async (token) => {
   const token = await db.tokens.find(token);
