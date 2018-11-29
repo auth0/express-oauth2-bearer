@@ -10,7 +10,7 @@ The purpose of this library is to protect oauth2 resources.
 npm i express-oauth2-bearer --save
 ```
 
-## Basic Usage
+## Usage
 
 You need to add the `auth` middleware with a callback to validate tokens as follows:
 
