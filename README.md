@@ -45,8 +45,7 @@ app.get('/products',
   });
 ```
 
-
-You need to add the `auth` middleware with a callback to validate tokens as follows:
+If your access tokens are not signed OpenID Connect id_tokens, you need to add the `auth` middleware with a callback to validate as follows:
 
 ```javascript
 const { auth, requiredScopes } = require('express-oauth2-bearer');
