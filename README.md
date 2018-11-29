@@ -30,7 +30,7 @@ app.get('/products',
   });
 ```
 
-The OpenID strategy is the default strategy if the application contains the variables `ISSUER_BASE_URL` and `ALLOWED_AUDIENCES`, so the above code is equal to this:
+The OpenID strategy is the default strategy and you can configure the parameters with the variables `ISSUER_BASE_URL` and `ALLOWED_AUDIENCES`. The above code is equal to this:
 
 ```javascript
 const { auth, requiredScopes } = require('express-oauth2-bearer');
