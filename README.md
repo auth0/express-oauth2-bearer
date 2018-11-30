@@ -1,6 +1,6 @@
-[![Build Status](https://travis-ci.org/auth0/express-openid-jwt.svg?branch=master)](https://travis-ci.org/auth0/express-openid-jwt)
+Authentication middleware for express.js that validate access tokens following [RFC 6750](https://tools.ietf.org/html/rfc6750).
 
-This library provides an authentication middleware for express.js that validate access tokens.
+[![Build Status](https://travis-ci.org/auth0/express-openid-jwt.svg?branch=master)](https://travis-ci.org/auth0/express-openid-jwt)
 
 The purpose of this library is to protect oauth2 resources.
 

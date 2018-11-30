@@ -1,6 +1,5 @@
 const createError = require('http-errors');
 const getToken = require('./lib/getToken');
-const UnauthorizedError = require('./lib/UnauthorizedError');
 const openid = require('./lib/strategies/openid');
 
 module.exports.strategies = {
