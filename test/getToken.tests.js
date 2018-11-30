@@ -30,9 +30,12 @@ describe('get token from request', function() {
             'authorization': `Boring ${expected}`
           }
         });
-      }).to.throw(/invalid request/)
-        .which.contain({
-          statusCode: 400
+      }).to.throw(/bearer token is missing/)
+        .which.deep.contain({
+          statusCode: 400,
+          headers: {
+            'www-authentication': 'Bearer realm="api", error="invalid_request", error_description="invalid request"'
+          }
         });
     });
   });
@@ -67,9 +70,12 @@ describe('get token from request', function() {
           body: {
             'access_token': expected
           }
-        })).to.throw(/invalid request/)
-          .which.contain({
-            statusCode: 400
+        })).to.throw(/bearer token is missing/)
+          .which.deep.contain({
+            statusCode: 400,
+            headers: {
+              'www-authentication': 'Bearer realm="api", error="invalid_request", error_description="invalid request"'
+            }
           });
       });
     });
@@ -84,10 +90,12 @@ describe('get token from request', function() {
           body: {
             'access_token': expected
           }
-        })).to.throw(/invalid request/)
-          .which.contain({
+        })).to.throw(/bearer token is missing/)
+          .which.deep.contain({
             statusCode: 400,
-            code: 'invalid_request'
+            headers: {
+              'www-authentication': 'Bearer realm="api", error="invalid_request", error_description="invalid request"'
+            }
           });
       });
     });
@@ -114,17 +122,19 @@ describe('get token from request', function() {
       });
     });
 
-    describe('if the method does not accept body', function() {
+    describe('if the method accepts body', function() {
       it('should throws', function() {
         expect(() => getToken({
           method: 'POST',
           query: {
             'access_token': expected
           }
-        })).to.throw(/invalid request/)
-          .which.contain({
+        })).to.throw(/bearer token is missing/)
+          .which.deep.contain({
             statusCode: 400,
-            code: 'invalid_request'
+            headers: {
+              'www-authentication': 'Bearer realm="api", error="invalid_request", error_description="invalid request"'
+            }
           });
       });
     });
@@ -142,9 +152,12 @@ describe('get token from request', function() {
         headers: {
           'authorization': 'Bearer 123'
         }
-      })).to.throw(/invalid request/)
-        .which.contain({
-          statusCode: 400
+      })).to.throw(/more than one method used for authentication/)
+        .which.deep.contain({
+          statusCode: 400,
+          headers: {
+            'www-authentication': 'Bearer realm="api", error="invalid_request", error_description="invalid request"'
+          }
         });
     });
   });
