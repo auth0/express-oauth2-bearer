@@ -1,6 +1,6 @@
 {
   "name": "express-oauth2-bearer",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Authentication middleware for express.js that validate access tokens following RFC 6750.",
   "main": "index.js",
   "scripts": {
