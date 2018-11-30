@@ -10,6 +10,7 @@
   "author": "José F. Romaniello <jfromaniello@gmail.com> (https://joseoncode.com)",
   "license": "MIT",
   "dependencies": {
+    "http-errors": "^1.7.1",
     "jsonwebtoken": "^8.4.0",
     "openid-client": "^2.4.5",
     "p-memoize": "^2.1.0",

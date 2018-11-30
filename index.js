@@ -1,24 +1,7 @@
+const createError = require('http-errors');
+const getToken = require('./lib/getToken');
 const UnauthorizedError = require('./lib/UnauthorizedError');
 const openid = require('./lib/strategies/openid');
-
-const getToken = (req) => {
-  if (!req.headers.authorization) {
-    throw new UnauthorizedError('credentials_bad_format',
-      'Format is Authorization: Bearer [token]'
-    );
-  }
-
-  const match = req.headers.authorization.match(/^Bearer\s(.*)$/);
-
-  if (!match) {
-    throw new UnauthorizedError('credentials_bad_scheme',
-      'Format is Authorization: Bearer [token]'
-    );
-  }
-
-  return match[1];
-};
-
 
 module.exports.strategies = {
   'openid': openid
@@ -54,11 +37,13 @@ module.exports.auth = function(params) {
       const token = params.getToken(req);
       req.auth =  await params.strategy(token);
       if (!req.auth) {
-        return next(new UnauthorizedError('invalid_token', 'Invalid token'));
+        //Unauthorized: https://tools.ietf.org/html/rfc6750#section-3.1
+        return next(createError(401, 'invalid token', { code: 'invalid_token'}));
       }
       next();
     } catch(err) {
-      next(new UnauthorizedError('validation_error', err.message));
+      //Unauthorized: https://tools.ietf.org/html/rfc6750#section-3.1
+      return next(createError(401, err.message, { code: 'invalid_token'}));
     }
   };
 };
@@ -81,23 +66,20 @@ module.exports.requiredScopes = function(...scopes) {
 
   return (req, res, next) => {
     if (!req.auth) {
-      return next(new UnauthorizedError('missing_openid_context', {
-        message: 'The requiredScopes middleware need the auth middleware first.'
-      }));
+      //Unauthorized: https://tools.ietf.org/html/rfc6750#section-3.1
+      return next(createError(401, 'invalid token', { code: 'invalid_token'}));
     }
 
     if (!req.auth.claims.scope) {
-      return next(new UnauthorizedError('missing_scope_claim', {
-        message: 'The JWT does not contain an scope claim.'
-      }));
+      //Forbidden: https://tools.ietf.org/html/rfc6750#section-3.1
+      return next(createError(403, 'insufficient scopes', { code: 'insufficient_scope'}));
     }
 
     const tokenScopes = req.auth.claims.scope.split(' ');
     const missingScopes = expectedScopes.filter(s => !tokenScopes.includes(s));
     if (missingScopes.length > 0) {
-      return next(new UnauthorizedError('missing_scopes', {
-        message: 'Missing scopes: ' + missingScopes.join(' ')
-      }));
+      //Forbidden: https://tools.ietf.org/html/rfc6750#section-3.1
+      return next(createError(403, 'insufficient scopes', { code: 'insufficient_scope'}));
     }
 
     next();
