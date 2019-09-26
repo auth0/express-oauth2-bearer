@@ -85,7 +85,7 @@ app.get('/products',
 
 `auth()` accepts an asynchronous function receiving a token and returning a set of claims.
 
-`requiredScopes()` accepts either an string or an array of strings.
+`requiredScopes()` accepts either a string or an array of strings.
 
 `strategies.openid` accepts the following parameters:
 
