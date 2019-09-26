@@ -95,7 +95,7 @@ app.get('/products',
 | issuerBaseURL       | `env.ISSUER_BASE_URL`              | URL for the token issuer.                                            |
 | allowedAudiences    | `env.ALLOWED_AUDIENCES.split(',')` | Allowed audiences for the token.                                     |
 | clockTolerance      | `5`                                | Clock tolerance in seconds for token verification, aka leeway.       |
-| clientSecret        | `env.CLIENT_SECRET`                | Cleitn secret, required for tokens signed with symmetric algorithms. |
+| clientSecret        | `env.CLIENT_SECRET`                | Client secret, required for tokens signed with symmetric algorithms. |
 
 ## Contributing
 
