@@ -1,4 +1,4 @@
-Authentication middleware for Express.js that validates access tokens following [RFC 6750](https://tools.ietf.org/html/rfc6750). The purpose of this library is to protect Oauth2 resources.
+Authentication middleware for Express.js that validates access tokens following [RFC 6750](https://tools.ietf.org/html/rfc6750). The purpose of this library is to protect OAuth 2.0 resources.
 
 **Please Note:** This library is currently in pre-release status and has not had a complete security review. We **do not** recommend using this library in production yet. As we move towards early access, please be aware that releases may contain breaking changes. We will be monitoring the Issues queue here for feedback and questions. PRs and comments on existing PRs are welcome!
 
