@@ -25,7 +25,7 @@ npm i express-oauth2-bearer --save
 The library needs the following values to authroize requests:
 
 - **Issuer Base URL**: The base URL of the authorization server. If you're using Auth0, this is your tenant **Domain** pre-pended with `https://` (like `https://tenant.auth0.com`) found on the **Settings** tab for your Application in the [Auth0 dashboard](https://manage.auth0.com).
-- **Allowed Audiences**: Audience identifier (or mulitple separated by a comma) allowed for the access token. If you're using Auth0, this is the **Identifier** found on the **Settings** tab for your API in the [Auth0 dashboard](https://manage.auth0.com/#/apis).
+- **Allowed Audiences**: Audience identifier (or multiple separated by a comma) allowed for the access token. If you're using Auth0, this is the **Identifier** found on the **Settings** tab for your API in the [Auth0 dashboard](https://manage.auth0.com/#/apis).
 
 These can be configured in a `.env` file in the root of your application:
 
