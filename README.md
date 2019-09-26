@@ -83,7 +83,7 @@ app.get('/products',
 
 ### API Documentation:
 
-`auth()` accepts an asynchronous function receiving a token and returning a set of claims.
+`auth()` accepts an asynchronous function receiving an access token and returning a set of claims.
 
 `requiredScopes()` accepts either a string or an array of strings.
 
