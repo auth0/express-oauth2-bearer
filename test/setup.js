@@ -11,7 +11,7 @@ before(function() {
   nock('https://flosser.auth0.com', { allowUnmocked: true })
     .persist()
     .get('/.well-known/jwks.json')
-    .reply(200, certs.jwks);
+    .reply(200, { keys: certs.jwks });
 });
 
 after(function() {
