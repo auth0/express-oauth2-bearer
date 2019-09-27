@@ -1,4 +1,3 @@
-const createError = require('http-errors');
 const getToken = require('./lib/getToken');
 const openid = require('./lib/strategies/openid');
 const errors = require('./lib/errors');
