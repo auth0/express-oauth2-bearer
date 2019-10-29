@@ -1,13 +1,13 @@
 {
   "name": "express-oauth2-bearer",
-  "version": "0.3.0",
-  "description": "Authentication middleware for express.js that validate access tokens following RFC 6750.",
+  "version": "0.4.0",
+  "description": "Authentication middleware for Express.js that validates access tokens according to RFC 6750.",
   "main": "index.js",
   "scripts": {
     "test": "mocha",
     "lint": "eslint ./"
   },
-  "author": "José F. Romaniello <jfromaniello@gmail.com> (https://joseoncode.com)",
+  "author": "Auth0 <support@auth0.com>",
   "license": "MIT",
   "dependencies": {
     "http-errors": "^1.7.3",
