@@ -1,4 +1,4 @@
-const jwt = require('jsonwebtoken');
+const { JWT, JWK } = require('jose');
 const crypto = require('crypto');
 const server = require('./fixture/server');
 const { assert } = require('chai');
@@ -12,6 +12,7 @@ const request = require('request-promise-native').defaults({
 const issuer = 'https://flosser.auth0.com/';
 const audience = 'https://flosser.example.com/api';
 const symmetricKey = crypto.randomBytes(64).toString('hex');
+const key = JWK.asKey(cert.key, { kid: cert.kid });
 
 describe('integration tests', function() {
   let address;
@@ -26,14 +27,14 @@ describe('integration tests', function() {
 
   describe('when the token is valid', function() {
     let res;
-    let token = jwt.sign({
+    let token = JWT.sign({
       'iss': issuer,
       'aud': audience,
       'iat': Math.round(Date.now() / 1000),
       'exp': Math.round(Date.now() / 1000) + 60000,
       'fifi': 'tutu',
       'scope': 'read:products'
-    }, cert.key, { algorithm: 'RS256', header: { kid: cert.kid } });
+    }, key, { algorithm: 'RS256' });
 
     before(async function() {
       res = await request.get({
@@ -79,13 +80,13 @@ describe('integration tests', function() {
 
   describe('when the token has a different audience', function() {
     let res;
-    let token = jwt.sign({
+    let token = JWT.sign({
       'iss': issuer,
       'aud': 'fioireas',
       'iat': Math.round(Date.now() / 1000),
       'exp': Math.round(Date.now() / 1000) + 60000,
       'fifi': 'tutu'
-    }, cert.key, { algorithm: 'RS256', header: { kid: cert.kid } });
+    }, key, { algorithm: 'RS256' });
 
     before(async function() {
       res = await request.get({
@@ -105,7 +106,7 @@ describe('integration tests', function() {
 
   describe('when the token is valid and signed with a symmetric key', function() {
     let res;
-    let token = jwt.sign({
+    let token = JWT.sign({
       'iss': issuer,
       'aud': audience,
       'iat': Math.round(Date.now() / 1000),
