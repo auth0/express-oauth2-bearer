@@ -70,8 +70,8 @@ module.exports.requiredScopes = function(...scopes) {
       req.auth.claims.scope.split(' ') :
       [];
 
-    const missingScopes = expectedScopes.filter(s => !tokenScopes.includes(s));
-    if (missingScopes.length > 0) {
+    const hasExpectedScopes = expectedScopes.every(s => tokenScopes.includes(s));
+    if (!hasExpectedScopes) {
       return next(errors.createInsufficientScopeError(expectedScopes));
     }
 
