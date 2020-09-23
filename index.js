@@ -28,7 +28,7 @@ module.exports.auth = function(params) {
   }
 
   if(!params.strategy) {
-    params.strategy = openid();
+    params.strategy = openid(params);
   }
 
   return async (req, res, next) => {
