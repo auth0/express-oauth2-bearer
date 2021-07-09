@@ -10,7 +10,7 @@
   "author": "Auth0 <support@auth0.com>",
   "license": "MIT",
   "dependencies": {
-    "http-errors": "^1.7.3",
+    "http-errors": "^1.8.0",
     "jose": "^1.18.1",
     "openid-client": "^3.10.0",
     "p-memoize": "^3.1.0"
