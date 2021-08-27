@@ -41,6 +41,8 @@ ALLOWED_AUDIENCES=https://api.yourapplication.com
 ... or in your application code:
 
 ```js
+const { auth } = require('express-oauth2-bearer');
+
 app.use(auth({
   issuerBaseURL: 'https://tenant.auth0.com',
   allowedAudiences: 'https://api.yourapplication.com'
