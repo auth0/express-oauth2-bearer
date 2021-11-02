@@ -11,7 +11,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/auth0/express-oauth2-bearer.git"
+    "url": "https://github.com/auth0/express-oauth2-bearer.git"
   },
   "dependencies": {
     "http-errors": "^1.7.3",
