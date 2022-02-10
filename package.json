@@ -14,7 +14,7 @@
     "url": "https://github.com/auth0/express-oauth2-bearer.git"
   },
   "dependencies": {
-    "http-errors": "^1.7.3",
+    "http-errors": "^1.8.1",
     "jose": "^1.18.1",
     "openid-client": "^3.10.0",
     "p-memoize": "^3.1.0"
