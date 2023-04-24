@@ -1,4 +1,4 @@
-> **Please Note:** This repository is experimental and will be archived. To protect Express.js APIs with JWT Bearer Tokens we recommend [express-oauth2-jwt-bearer](https://github.com/auth0/node-oauth2-jwt-bearer/tree/main/packages/express-oauth2-jwt-bearer) (See the [blog post](https://auth0.com/blog/introducing-oauth2-express-sdk-protecting-api-with-jwt/#What-s-Happening-to--express-jwt----express-jwt-authz---and--jwks-rsa-) for more details).
+> **Please Note:** This repository is experimental and will reach end-of-life on **June 30, 2023**. To protect Express.js APIs with JWT Bearer Tokens, we recommend [express-oauth2-jwt-bearer](https://github.com/auth0/node-oauth2-jwt-bearer/tree/main/packages/express-oauth2-jwt-bearer). See the [Migration Guide](./MIGRATION_GUIDE.md) and the [blog post](https://auth0.com/blog/introducing-oauth2-express-sdk-protecting-api-with-jwt/#What-s-Happening-to--express-jwt----express-jwt-authz---and--jwks-rsa-) for more details).
 
 Authentication middleware for Express.js that validates access tokens following [RFC 6750](https://tools.ietf.org/html/rfc6750). The purpose of this library is to protect OAuth 2.0 resources.
 
